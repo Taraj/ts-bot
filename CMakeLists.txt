@@ -4,7 +4,10 @@ project(TS3_BOT C)
 set(CMAKE_CXX_FLAGS "-Wall -pedantic -g")
 
 set(CMAKE_C_STANDARD 11)
-add_executable(TS3_BOT main.c config.h database/database.h
+add_executable(TS3_BOT
+        main.c
+        config.h
+        database/database.h
         database/database.c
         bot/events/clientMove.c
         bot/events/clientRecording.c
@@ -23,7 +26,15 @@ add_executable(TS3_BOT main.c config.h database/database.h
         collections/tree.c
         communication/communication.h
         communication/communication.c
-        bot/compare.c bot/compare.h utilities.h utilities.c communication/network/network.c communication/network/network.h "rankings/rankings.h" "rankings/rankings.c")
+        bot/compare.c
+        bot/compare.h
+        utilities.h
+        utilities.c
+        communication/network/network.c
+        communication/network/network.h
+        rankings/rankings.h
+        rankings/rankings.c)
+
 target_link_libraries(TS3_BOT mysqlclient)
 
 include_directories(/usr/include/mysql/)

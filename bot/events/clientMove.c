@@ -12,7 +12,9 @@ void clientMove(int mainSocket, struct tree *old, struct tree *new) {
 
     if (strcmp(treeGetValue(new, "client_type"), "0") == 0 &&
         strcmp(treeGetValue(new, "cid"), TS3_HELPER_CHANNEL) == 0 &&
-        haveGroup(new, TS3_HELPER_GROUP) == 0) {
+        haveGroup(new, TS3_HELPER_GROUP) == 0 &&
+        haveGroup(new, TS3_HELPER_IGNORE_GROUP) == 0
+            ) {
         char buffer[1024];
         int helperCount = 0;
         sprintf(buffer, "Aktywni Helperzy zostali powiadomieni o twoim wejsciu tutaj (");

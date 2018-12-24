@@ -127,6 +127,6 @@ void clientJoin(int mainSocket, struct tree *new) {
     if (strcmp(treeGetValue(new, "client_type"), "0") == 0) {
         sendWelcomeMessage(mainSocket, new);
     }
-    updateRankingConnectionTimes(mainSocket, TS3_RANKING_TIME);
-    updateRankingConnectionCount(mainSocket, TS3_RANKING_COUNT);
+    updateRankingConnectionTimes(mainSocket, TS3_RANKING_CONNECTION_TIME_CHANNEL_ID);
+    updateRankingConnectionCount(mainSocket, TS3_RANKING_CONNECTION_COUNT_CHANNEL_ID);
 }

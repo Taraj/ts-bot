@@ -35,11 +35,11 @@ void compareClientList(int mainSocket, struct list *old, struct list *new) {
                 long long oldAfk = strtoll(treeGetValue(ItOld->tree, "client_idle_time"), NULL, 0);
                 long long newAfk = strtoll(treeGetValue(ItNew->tree, "client_idle_time"), NULL, 0);
 
-                if (newAfk < oldAfk && oldAfk > TS3_BOT_MIN_AFK_TIME) {
+                if (newAfk < oldAfk && oldAfk > TS3_MIN_AFK_TIME) {
                     clientStopBeAfk(mainSocket, ItOld->tree, ItNew->tree);
                 }
 
-                if (newAfk > TS3_BOT_MIN_AFK_TIME && oldAfk <= TS3_BOT_MIN_AFK_TIME) {
+                if (newAfk > TS3_MIN_AFK_TIME && oldAfk <= TS3_MIN_AFK_TIME) {
                     clientStartAfk(mainSocket, ItOld->tree, ItNew->tree);
                 }
 
@@ -79,7 +79,7 @@ void compareChannelList(int mainSocket, struct list *old, struct list *new) {
                 long long oldInactive = strtoll(treeGetValue(ItOld->tree, "seconds_empty"), NULL, 0);
                 long long newInactive = strtoll(treeGetValue(ItNew->tree, "seconds_empty"), NULL, 0);
 
-                if (newInactive > TS3_BOT_MIN_CHANNEL_INACTIVE_TIME && oldInactive <= TS3_BOT_MIN_CHANNEL_INACTIVE_TIME) {
+                if (newInactive > TS3_MIN_CHANNEL_INACTIVE_TIME && oldInactive <= TS3_MIN_CHANNEL_INACTIVE_TIME) {
                     channelInactive(mainSocket, ItOld->tree, ItNew->tree);
                 }
                 break;

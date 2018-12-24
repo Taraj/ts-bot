@@ -5,7 +5,7 @@
 #include "events.h"
 
 void clientRecording(int mainSocket, struct tree *old, struct tree *new) {
-    if (!haveGroup(new, TS3_BOT_ALLOW_RECORDING_GROUP)) {
+    if (!haveGroup(new, TS3_ALLOW_RECORDING_GROUP)) {
         kickClientFromServer(mainSocket, new, "Zakaz nagrywania!!!");
     }
 }
