@@ -24,6 +24,8 @@ void clientMove(int mainSocket, struct tree *old, struct tree *new) {
         char tmp[110];
         sprintf(tmp, "Pomocy [URL=client:///%s]%s[/URL]!!!", client_unique_identifierUser,
                 client_nicknameUser);
+        free(client_nicknameUser);
+        free(client_unique_identifierUser);
         for (struct list *atm = list; atm != NULL; atm = atm->next) {
             if (haveGroup(atm->tree, TS3_HELPER_GROUP)) {
 
@@ -37,7 +39,7 @@ void clientMove(int mainSocket, struct tree *old, struct tree *new) {
                 free(client_nickname);
             }
         }
-
+        listFree(list);
         if (helperCount == 0) {
             sendPrivateMessageToClient(mainSocket, new, "Brak aktywnych Helperów. Proszę spróbować później :).");
         } else {
