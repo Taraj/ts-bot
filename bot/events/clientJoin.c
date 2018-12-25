@@ -70,17 +70,7 @@ static char *getEnglishMessage(struct tree *client, struct list *clientStats) {
     return msg;
 }
 
-static int sendWelcomeMessage(int mainSocket, struct tree *client) {
-    char query[1024];
-    sprintf(query, "SELECT "
-                   "IF(`last_connection` = 0 , `first_connection`,`last_connection`) AS `last_connection`,"
-                   "`first_connection`, "
-                   "`total_connection_count` + 1 as `total_connection_count`, "
-                   "`total_connection_time`, "
-                   "`total_inactivity_time` "
-                   " FROM `clients` WHERE `TS_client_database_id` = %s;", treeGetValue(client, "client_database_id"));
-
-    struct list *clientStats = execQuery(query);
+static int sendWelcomeMessage(int mainSocket, struct tree *client, struct list *clientStats) {
     if (clientStats != NULL) {
         char *msg = NULL;
         if (strcmp(treeGetValue(client, "client_country"), "PL") == 0) {
@@ -91,7 +81,7 @@ static int sendWelcomeMessage(int mainSocket, struct tree *client) {
         sendPrivateMessageToClient(mainSocket, client, msg);
         free(msg);
     }
-    listFree(clientStats);
+
 }
 
 
@@ -121,12 +111,13 @@ void clientJoin(int mainSocket, struct tree *new) {
     free(client_version);
     free(client_unique_identifier);
     free(client_platform);
-    listFree(execQuery(query));
-
+    struct list *stats = execQuery(query);
 
     if (strcmp(treeGetValue(new, "client_type"), "0") == 0) {
-        sendWelcomeMessage(mainSocket, new);
+        sendWelcomeMessage(mainSocket, new, stats);
     }
+    listFree(stats);
     updateRankingConnectionTimes(mainSocket, TS3_RANKING_CONNECTION_TIME_CHANNEL_ID);
     updateRankingConnectionCount(mainSocket, TS3_RANKING_CONNECTION_COUNT_CHANNEL_ID);
+
 }

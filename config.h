@@ -12,7 +12,7 @@
 #define DATABASE_IP "localhost"
 #define DATABASE_USER "root"
 #define DATABASE_PASSWORD "123"
-#define DATABASE "teamSpeak3"
+#define DATABASE "teamSpeak3-mrge"
 
 
 #define TS3_SERVER_ADMIN_LOGIN "serveradmin"
