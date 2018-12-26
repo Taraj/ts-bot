@@ -88,8 +88,8 @@ BEGIN
   SELECT `clients`.`total_connection_time`,
          `clients`.`total_connection_count` + 1 AS `total_connection_count`,
          `clients`.`total_inactivity_time`,
-         `connections_last`.`connection_start`  AS `first_connection`,
-         `connections_first`.`connection_start` AS `last_connection`
+         `connections_last`.`connection_start`  AS `last_connection`,
+         `connections_first`.`connection_start` AS `first_connection`
   FROM   `clients`
   JOIN   `connections` `connections_first`
   ON     `clients`.`first_connection_id`=`connections_first`.`id`
@@ -398,7 +398,7 @@ ALTER TABLE `visited_channels`
 -- AUTO_INCREMENT dla tabeli `channels`
 --
 ALTER TABLE `channels`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT dla tabeli `clients`
 --
