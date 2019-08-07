@@ -53,10 +53,10 @@ char *createChannel(int mainSocket, char *name, char *password, char *cpid) {
     free(escapedName);
     cuttedName[40] = '\0';
     if (cpid == NULL) {
-        sprintf(command, "channelcreate channel_flag_permanent=1 channel_name=%s channel_password=%s\n\n", cuttedName,
+        sprintf(command, "channelcreate channel_flag_permanent=1 channel_name=%s channel_password=%s\n", cuttedName,
                 password);
     } else {
-        sprintf(command, "channelcreate channel_flag_permanent=1 cpid=%s channel_name=%s channel_password=%s\n\n",
+        sprintf(command, "channelcreate channel_flag_permanent=1 cpid=%s channel_name=%s channel_password=%s\n",
                 cpid, cuttedName, password);
     }
     struct result res = executeCommandWithTreeResponse(mainSocket, command);

@@ -20,7 +20,7 @@ struct result {
  * @param port - server port
  * @return socket descriptor
  */
-int connectTeamSpeak(char *ip, u_int16_t port);
+int connectTeamSpeak(char *ip, uint16_t port);
 
 /**
  * Execute Team Speak command and return response

@@ -22,7 +22,7 @@
  * @param port - server port
  * @return socket descriptor
  */
-int createSocket(char *ip, u_int16_t port);
+int createSocket(char *ip, uint16_t port);
 
 
 /**

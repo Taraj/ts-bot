@@ -9,7 +9,7 @@ struct list *execQuery(char *query) {
     MYSQL_ROW row;
     MYSQL_FIELD *field;
     MYSQL *connection = mysql_init(NULL);
-    if (mysql_real_connect(connection, DATABASE_IP, DATABASE_USER, DATABASE_PASSWORD, DATABASE, 0, NULL, 0) == NULL) {
+    if (mysql_real_connect(connection, DATABASE_ADDRESS, DATABASE_USER, DATABASE_PASSWORD, DATABASE, 0, NULL, 0) == NULL) {
         fprintf(stderr, "%s\n%s\n", query, mysql_error(connection));
         mysql_close(connection);
         return NULL;

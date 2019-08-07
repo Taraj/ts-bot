@@ -4,7 +4,7 @@
 
 #include "network.h"
 
-int createSocket(char *ip, u_int16_t port) {
+int createSocket(char *ip, uint16_t port) {
     int mainSocket;
     struct sockaddr_in address;
 

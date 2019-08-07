@@ -118,7 +118,7 @@ struct result executeCommandWithPlainTextResponse(int mainSocket, char *command)
     return executeCommand(mainSocket, command);
 }
 
-int connectTeamSpeak(char *ip, u_int16_t port) {
+int connectTeamSpeak(char *ip, uint16_t port) {
     int mainSocket = createSocket(ip, port);
     char *response = malloc(1024);
     if (response == NULL) {

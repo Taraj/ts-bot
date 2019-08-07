@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.7.2)
 project(TS3_BOT C)
 
 set(CMAKE_CXX_FLAGS "-Wall -pedantic -g")
@@ -18,7 +18,6 @@ add_executable(TS3_BOT
         bot/events/clientStartAfk.c
         bot/events/clientServerGroupChange.c
         bot/events/channelDelete.c
-        bot/events/channelInactive.c
         highLevelFunctions/highLevelFunctions.c
         highLevelFunctions/highLevelFunctions.h
         collections/collections.h

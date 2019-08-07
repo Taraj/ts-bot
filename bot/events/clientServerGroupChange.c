@@ -30,7 +30,7 @@ void clientServerGroupChange(int mainSocket, struct tree *old, struct tree *new)
 
         if (channel == NULL) {
             char *name = randomString(40);
-            char *channelId = createChannel(mainSocket, name, NULL, NULL);
+            char *channelId = createChannel(mainSocket, name, TS3_CHANNEL_DEFAULT_PASSWORD, NULL);
             free(name);
             if (channelId == NULL) {
                 return;

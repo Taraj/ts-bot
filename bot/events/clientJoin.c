@@ -119,5 +119,5 @@ void clientJoin(int mainSocket, struct tree *new) {
     listFree(stats);
     updateRankingConnectionTimes(mainSocket, TS3_RANKING_CONNECTION_TIME_CHANNEL_ID);
     updateRankingConnectionCount(mainSocket, TS3_RANKING_CONNECTION_COUNT_CHANNEL_ID);
-
+     updateRankingLongestConnection(mainSocket, TS3_RANKING_LONGEST_CONNECTION_CHANNEL_ID);
 }

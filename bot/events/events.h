@@ -31,6 +31,4 @@ void clientServerGroupChange(int mainSocket, struct tree *old, struct tree *new)
 
 void channelDelete(int mainSocket, struct tree *old);
 
-void channelInactive(int mainSocket, struct tree *old, struct tree *new);
-
 #endif //TS3_BOT_EVENTS_H

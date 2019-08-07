@@ -79,21 +79,4 @@ void compareChannelList(int mainSocket, struct list *old, struct list *new) {
             channelDelete(mainSocket, ItOld->tree);
         }
     }
-    last = old;
-    for (struct list *ItNew = new; ItNew != NULL; ItNew = ItNew->next) {
-
-        for (struct list *ItOld = last; ItOld != NULL; ItOld = ItOld->next) {
-            if (strcmp(treeGetValue(ItNew->tree, "cid"), treeGetValue(ItOld->tree, "cid")) == 0) {
-
-                long long oldInactive = strtoll(treeGetValue(ItOld->tree, "seconds_empty"), NULL, 0);
-                long long newInactive = strtoll(treeGetValue(ItNew->tree, "seconds_empty"), NULL, 0);
-
-                if (newInactive > TS3_MIN_CHANNEL_INACTIVE_TIME && oldInactive <= TS3_MIN_CHANNEL_INACTIVE_TIME) {
-                    channelInactive(mainSocket, ItOld->tree, ItNew->tree);
-                }
-                last = ItOld->next;
-                break;
-            }
-        }
-    }
 }

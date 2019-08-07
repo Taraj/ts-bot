@@ -5,7 +5,6 @@ I chose **C** because my VPS is not the most powerful and i need some performanc
 * add clients to AFK group.
 * kick clients while recording(if they haven't special group).
 * create private channel via group.
-* delete inactive channels.
 * poke helpers if someone join to help channel.
 * welcome message.
 * rankings:
