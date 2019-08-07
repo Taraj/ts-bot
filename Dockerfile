@@ -6,8 +6,8 @@ RUN apk add cmake
 RUN apk add make
 RUN apk add libc-dev
 RUN apk add mysql-dev
-WORKDIR /TS3_BOT
-ENV PATH "${PATH}:/TS3_BOT"
+WORKDIR /ts-bot
+ENV PATH "${PATH}:/ts-bot"
 COPY . .
 RUN cmake .
 

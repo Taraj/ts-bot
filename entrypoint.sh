@@ -2,7 +2,7 @@
 set -e
 
 if [ "$1" = 'TS3_BOT' ]; then
-    cat <<- EOF >/TS3_BOT/config.h
+    cat <<- EOF >/ts-bot/config.h
             #ifndef TS3_BOT_CONFIG_H
             #define TS3_BOT_CONFIG_H
 
