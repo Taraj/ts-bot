@@ -37,7 +37,7 @@ void clientServerGroupChange(int mainSocket, struct tree *old, struct tree *new)
             }
             channelGroupAddClient(mainSocket, new, channelId, TS3_CHANNEL_ADMIN_GROUP);
 
-            sprintf(query, "CALL `channel_create`('%s', '1', '%s');", channelId,
+            sprintf(query, "CALL `channel_create`('%s', '%s');", channelId,
                     treeGetValue(new, "client_database_id"));
             listFree(execQuery(query));
             moveClient(mainSocket, new, channelId);
