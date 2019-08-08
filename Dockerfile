@@ -10,6 +10,7 @@ WORKDIR /ts-bot
 ENV PATH "${PATH}:/ts-bot"
 COPY . .
 RUN cmake .
+RUN chmod +x entrypoint.sh
 
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["TS3_BOT"]
