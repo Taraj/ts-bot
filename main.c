@@ -21,6 +21,15 @@ char *hostnameToIP(char *hostname){
     return inet_ntoa(*((struct in_addr *)(he->h_addr_list[0])));
 }
 
+void initDatabase(){
+    struct list *stats = execQuery("SELECT `TS_clid` FROM `connections` WHERE `connection_stop` IS NULL;");
+    for (struct list *it = stats; it != NULL; it = it->next) {
+        char query[1024];
+        sprintf(query, "CALL `client_leave`('%s', '0');", treeGetValue(it->tree, "TS_clid"));
+        listFree(execQuery(query));
+    }
+}
+
 int main() {
 
     char *address = hostnameToIP(SERVER_ADDRESS);
@@ -46,7 +55,7 @@ int main() {
         exit(1);
     }
 
-    listFree(execQuery("CALL `init`();"));
+    initDatabase();
 
     struct list *clientListOld = clientList(connection, "-uid -voice -times -groups -info -country -ip -badges");
     struct list *clientListNew = NULL;
