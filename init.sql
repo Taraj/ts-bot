@@ -235,12 +235,14 @@ BEGIN
      IF @connectionID IS NOT NULL THEN
         IF client_idle_time > 0 THEN
             INSERT INTO `TeamSpeakBotData`.`inactivity_periods` (
-                    `inactivity_start`,            
+                    `inactivity_start`,  
+                    `inactivity_stop`,          
                     `inactivity_time`, 
                     `connections_id`
                 ) VALUES (
-                    UNIX_TIMESTAMP(@unix_timestamp) - client_idle_time,
-                    client_idle_time, 
+                    FROM_UNIXTIME(UNIX_TIMESTAMP(@unix_timestamp) - client_idle_time),
+                    @unix_timestamp,
+                    client_idle_time,
                     @connectionID
                 );
 
@@ -319,7 +321,7 @@ BEGIN
                 `inactivity_time`, 
                 `connections_id`
              ) VALUES (
-                UNIX_TIMESTAMP(@unix_timestamp) - client_idle_time,
+                FROM_UNIXTIME(UNIX_TIMESTAMP(@unix_timestamp) - client_idle_time),
                 @unix_timestamp,
                 client_idle_time, 
                 @connectionID
