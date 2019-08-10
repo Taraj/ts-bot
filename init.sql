@@ -154,33 +154,12 @@ BEGIN
                         @unix_timestamp,
                         @clientID
                 );
-
         SELECT  0                AS `total_connection_time`,
                 1                AS `total_connection_count`,
                 0                AS `total_inactivity_time`,
                 @unix_timestamp  AS `first_connection`,
                 @unix_timestamp  AS `last_connection`;
-
-        SET  @connectionID := `TeamSpeakBotData`.`getConnectionID`(clid);
-        INSERT INTO `TeamSpeakBotData`.`visited_channels` (
-                `TS_cid`,
-                `channel_created`,
-                `connections_id`
-            ) VALUES (
-                cid,
-                @unix_timestamp,
-                @connectionID
-            );
     ELSE
-        SELECT 
-            `clients`.`total_connection_time`,
-            `clients`.`total_connection_count` + 1 AS `total_connection_count`,
-            `clients`.`total_inactivity_time`,
-            `clients`.`last_connection_start`  AS `last_connection`,
-            `clients`.`first_connection_start` AS `first_connection`
-        FROM `TeamSpeakBotData`.`clients`
-        WHERE `clients`.`id` = @clientID;
-
         INSERT INTO `TeamSpeakBotData`.`connections` (
                         `TS_clid`,
                         `TS_client_nickname`,
@@ -200,23 +179,33 @@ BEGIN
                         client_country,
                         @clientID
                     );
+        SELECT 
+            `clients`.`total_connection_time`,
+            `clients`.`total_connection_count` + 1 AS `total_connection_count`,
+            `clients`.`total_inactivity_time`,
+            `clients`.`last_connection_start`  AS `last_connection`,
+            `clients`.`first_connection_start` AS `first_connection`
+        FROM `TeamSpeakBotData`.`clients`
+        WHERE `clients`.`id` = @clientID;
 
-    UPDATE `TeamSpeakBotData`.`clients` SET 
-        `clients`.`last_TS_client_nickname` = client_nickname,
-        `clients`.`total_connection_count` =  `clients`.`total_connection_count` + 1
-    WHERE `clients`.`id` = @clientID;
+        UPDATE `TeamSpeakBotData`.`clients` SET 
+            `clients`.`last_TS_client_nickname` = client_nickname,
+            `clients`.`total_connection_count` =  `clients`.`total_connection_count` + 1
+        WHERE `clients`.`id` = @clientID;
+
+    END IF;
+
+    SET  @connectionID := `TeamSpeakBotData`.`getConnectionID`(clid);
 
     INSERT INTO `TeamSpeakBotData`.`visited_channels` (
                 `TS_cid`,
-                `channel_created`,
+                `date`,
                 `connections_id`
             ) VALUES (
                 cid,
                 @unix_timestamp,
                 @connectionID
             );
-
-    END IF;
 END $$
 
 
