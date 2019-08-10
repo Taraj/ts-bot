@@ -195,8 +195,6 @@ BEGIN
 
     END IF;
 
-    SET  @connectionID := `TeamSpeakBotData`.`getConnectionID`(clid);
-
     INSERT INTO `TeamSpeakBotData`.`visited_channels` (
                 `TS_cid`,
                 `date`,
@@ -204,10 +202,9 @@ BEGIN
             ) VALUES (
                 cid,
                 @unix_timestamp,
-                @connectionID
+                `TeamSpeakBotData`.`getConnectionID`(clid)
             );
 END $$
-
 
 
 CREATE PROCEDURE `TeamSpeakBotData`.`client_leave`(
