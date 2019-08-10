@@ -64,18 +64,16 @@ void compareClientList(int mainSocket, struct list *old, struct list *new) {
 
 void compareChannelList(int mainSocket, struct list *old, struct list *new) {
     int exist;
-    struct list *last;
-    last = new;
     for (struct list *ItOld = old; ItOld != NULL; ItOld = ItOld->next) {
         exist = 0;
-        for (struct list *ItNew = last; ItNew != NULL; ItNew = ItNew->next) {
+        for (struct list *ItNew = new; ItNew != NULL; ItNew = ItNew->next) {
             if (strcmp(treeGetValue(ItNew->tree, "cid"), treeGetValue(ItOld->tree, "cid")) == 0) {
                 exist = 1;
-                last = ItNew->next;
                 break;
             }
         }
         if (!exist) {
+            treePrint(ItOld->tree);
             channelDelete(mainSocket, ItOld->tree);
         }
     }

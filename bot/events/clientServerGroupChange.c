@@ -24,8 +24,8 @@ void clientServerGroupChange(int mainSocket, struct tree *old, struct tree *new)
         serverGroupDeleteClient(mainSocket, new, TS3_CREATE_CHANNEL_GROUP);
         char query[1024];
         sprintf(query,
-                "SELECT `TS_cid` FROM `channels` WHERE `clients_id` = (SELECT `id` FROM `clients` WHERE `TS_client_database_id` = %s);",
-                treeGetValue(old, "client_database_id"));
+                "SELECT `TS_cid` FROM `channels` WHERE `clients_id` = (SELECT `clients_id` FROM `connections` WHERE `TS_clid` = %s AND `connection_stop` IS NULL);",
+                treeGetValue(old, "clid"));
         struct list *channel = execQuery(query);
 
         if (channel == NULL) {
@@ -38,7 +38,7 @@ void clientServerGroupChange(int mainSocket, struct tree *old, struct tree *new)
             channelGroupAddClient(mainSocket, new, channelId, TS3_CHANNEL_ADMIN_GROUP);
 
             sprintf(query, "CALL `channel_create`('%s', '%s');", channelId,
-                    treeGetValue(new, "client_database_id"));
+                    treeGetValue(new, "clid"));
             listFree(execQuery(query));
             moveClient(mainSocket, new, channelId);
             free(channelId);

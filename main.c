@@ -57,18 +57,18 @@ int main() {
 
     initDatabase();
 
-    struct list *clientListOld = clientList(connection, "-uid -voice -times -groups -info -country -ip -badges");
+    struct list *clientListOld = clientList(connection, "-uid -voice -times -groups -info -country -ip");
     struct list *clientListNew = NULL;
 
-    struct list *channelListOld = channelList(connection, "-secondsempty");
+    struct list *channelListOld = channelList(connection, NULL);
     struct list *channelListNew = NULL;
 
     sleep(TS3_BOT_REFRESH_TIME);
     
     while (1) {
  
-        clientListNew = clientList(connection, "-uid -voice -times -groups -info -country -ip -badges");
-        channelListNew = channelList(connection, "-secondsempty");
+        clientListNew = clientList(connection, "-uid -voice -times -groups -info -country -ip");
+        channelListNew = channelList(connection, NULL);
 
         compareClientList(connection, clientListOld, clientListNew);
         compareChannelList(connection, channelListOld, channelListNew);
