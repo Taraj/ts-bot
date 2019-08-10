@@ -73,7 +73,6 @@ void compareChannelList(int mainSocket, struct list *old, struct list *new) {
             }
         }
         if (!exist) {
-            treePrint(ItOld->tree);
             channelDelete(mainSocket, ItOld->tree);
         }
     }
