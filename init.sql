@@ -157,8 +157,8 @@ BEGIN
         SELECT  0                AS `total_connection_time`,
                 1                AS `total_connection_count`,
                 0                AS `total_inactivity_time`,
-                @unix_timestamp  AS `first_connection`,
-                @unix_timestamp  AS `last_connection`;
+                UNIX_TIMESTAMP(@unix_timestamp) - TIMESTAMPDIFF(SECOND, NOW(), UTC_TIMESTAMP()) AS `first_connection`,
+                UNIX_TIMESTAMP(@unix_timestamp) - TIMESTAMPDIFF(SECOND, NOW(), UTC_TIMESTAMP()) AS `last_connection`;
     ELSE
         INSERT INTO `TeamSpeakBotData`.`connections` (
                         `TS_clid`,
@@ -183,14 +183,15 @@ BEGIN
             `clients`.`total_connection_time`,
             `clients`.`total_connection_count` + 1 AS `total_connection_count`,
             `clients`.`total_inactivity_time`,
-            `clients`.`last_connection_start`  AS `last_connection`,
-            `clients`.`first_connection_start` AS `first_connection`
+            UNIX_TIMESTAMP(`clients`.`last_connection_start`) - TIMESTAMPDIFF(SECOND, NOW(), UTC_TIMESTAMP())  AS `last_connection`,
+            UNIX_TIMESTAMP(`clients`.`first_connection_start`) - TIMESTAMPDIFF(SECOND, NOW(), UTC_TIMESTAMP()) AS `first_connection`
         FROM `TeamSpeakBotData`.`clients`
         WHERE `clients`.`id` = @clientID;
 
         UPDATE `TeamSpeakBotData`.`clients` SET 
             `clients`.`last_TS_client_nickname` = client_nickname,
-            `clients`.`total_connection_count` =  `clients`.`total_connection_count` + 1
+            `clients`.`total_connection_count` =  `clients`.`total_connection_count` + 1,
+            `clients`.`last_connection_start` = @unix_timestamp
         WHERE `clients`.`id` = @clientID;
 
     END IF;
