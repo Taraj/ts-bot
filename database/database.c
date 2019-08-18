@@ -15,7 +15,7 @@ struct list *execQuery(char *query) {
         return NULL;
     }
 
-    if (mysql_query(connection, "set names 'utf8'") != 0) {
+    if (mysql_query(connection, "set names 'utf8mb4';") != 0) {
         fprintf(stderr, "set names 'utf8'\n%s\n", mysql_error(connection));
         mysql_close(connection);
         return NULL;

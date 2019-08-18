@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 
-CREATE DATABASE TeamSpeakBotData;
+CREATE DATABASE TeamSpeakBotData CHARSET=utf8mb4 COLLATE utf8mb4_0900_bin;
 
 -- --------------------------------------------------------
 
@@ -83,11 +83,11 @@ ALTER TABLE `TeamSpeakBotData`.`visited_channels`
 
 
 DELIMITER $$
-CREATE FUNCTION `TeamSpeakBotData`.`getClientID`(`client_unique_identifier` CHAR(30)) RETURNS INT
+CREATE FUNCTION `TeamSpeakBotData`.`getClientID`(`client_unique_identifier` CHAR(30) CHARSET utf8mb4) RETURNS INT
     READS SQL DATA
     SQL SECURITY INVOKER
 BEGIN 
-    SELECT `clients`.`id` INTO @clientID FROM `TeamSpeakBotData`.`clients` WHERE `clients`.`TS_client_unique_identifier` = client_unique_identifier;
+    SELECT `clients`.`id` INTO @clientID FROM `TeamSpeakBotData`.`clients` WHERE `clients`.`TS_client_unique_identifier` = client_unique_identifier COLLATE utf8mb4_0900_bin;
     RETURN @clientID; 
 END $$
 
@@ -105,14 +105,14 @@ DELIMITER ;
 
 DELIMITER $$
 CREATE  PROCEDURE `TeamSpeakBotData`.`client_join`(
-    IN `client_unique_identifier` CHAR(30),
+    IN `client_unique_identifier` CHAR(30) CHARSET utf8mb4,
     IN `client_database_id` INT UNSIGNED,
     IN `clid` SMALLINT UNSIGNED,
-    IN `client_nickname` CHAR(40),
-    IN `client_platform` CHAR(20),
-    IN `connection_client_ip` CHAR(50),
-    IN `client_version` CHAR(50),
-    IN `client_country` CHAR(5),
+    IN `client_nickname` CHAR(40) CHARSET utf8mb4,
+    IN `client_platform` CHAR(20) CHARSET utf8mb4,
+    IN `connection_client_ip` CHAR(50) CHARSET utf8mb4,
+    IN `client_version` CHAR(50) CHARSET utf8mb4,
+    IN `client_country` CHAR(5) CHARSET utf8mb4,
     IN `cid` INT UNSIGNED
 )
     MODIFIES SQL DATA
